@@ -1,0 +1,13 @@
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 80%;
+}
+
+.cards {
+    margin: 0.5rem;
+}
+.product-btns {
+    display: flex;
+    justify-content: space-between;
+}
