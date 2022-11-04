@@ -6,7 +6,7 @@ import SNavbar from "./components/navbar/navbar";
 import Shop from "./pages/shop/Shop";
 import Cart from "./pages/shop/Cart";
 import Orders from "./pages/shop/Orders";
-import AddProduct from "./pages/admin/AddProduct";
+import AddProduct from "./pages/admin/AddProduct/AddProduct";
 import AdminProducts from "./pages/admin/AdminProducts";
 
 function App() {
