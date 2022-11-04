@@ -1,9 +1,11 @@
+import {FC} from "react";
+
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
-export default function SNavbar() {
+const SNavbar: FC = () => {
     return (
         <Navbar bg="light" expand="lg">
             <Container>
@@ -16,7 +18,7 @@ export default function SNavbar() {
                         <Nav.Link href="/orders">Orders</Nav.Link>
                         <NavDropdown title="Admin" id="basic-nav-dropdown">
                             <NavDropdown.Item href="/admin/add-product">Add Product</NavDropdown.Item>
-                            <NavDropdown.Item href="/admin/Products">Admin Products</NavDropdown.Item>
+                            <NavDropdown.Item href="/admin/products">Admin Products</NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
                 </Navbar.Collapse>
@@ -24,3 +26,5 @@ export default function SNavbar() {
         </Navbar>
     );
 }
+
+export default SNavbar

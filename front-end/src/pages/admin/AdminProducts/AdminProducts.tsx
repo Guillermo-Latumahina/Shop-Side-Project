@@ -1,10 +1,10 @@
 import {FC} from 'react'
+import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
 
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
-import './Shop.css'
+import'./AdminProducts.css'
 
-const Shop: FC = () => {
+const AdminProducts: FC = () => {
     return (
         <div className="container">
             <Card style={{width: '15rem'}}>
@@ -16,13 +16,13 @@ const Shop: FC = () => {
                         Some quick example text to build on the card title and make up the
                         bulk of the card's content.
                     </Card.Text>
-                    <div className="product-btns">
-                        <Button variant="outline-success" size="sm" className="product-btn">Details</Button>
-                        <Button variant="outline-success" size="sm" className="product-btn">Add to cart</Button>
+                    <div className="admin-btns">
+                        <Button variant="outline-warning" size="sm">Edit</Button>
+                        <Button variant="outline-danger" size="sm" >Delete</Button>
                     </div>
                 </Card.Body>
             </Card>
         </div>
     )
 }
-export default Shop
+export default AdminProducts

@@ -7,7 +7,7 @@ import Shop from "./pages/shop/Shop/Shop";
 import Cart from "./pages/shop/Cart";
 import Orders from "./pages/shop/Orders";
 import AddProduct from "./pages/admin/AddProduct/AddProduct";
-import AdminProducts from "./pages/admin/AdminProducts";
+import AdminProducts from "./pages/admin/AdminProducts/AdminProducts";
 
 function App() {
     return (
