@@ -1,4 +1,4 @@
-import {FC, JSXElementConstructor, ReactElement, ReactFragment, ReactPortal, useEffect, useState} from 'react'
+import {FC, useEffect, useState} from 'react'
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import axios from "axios";
@@ -8,16 +8,16 @@ const AdminProducts: FC = () => {
     const [products, setProducts] = useState<any>([]);
     const url = "http://localhost:8080/admin/products";
     useEffect(() => {
-        axios.get("http://localhost:8080/admin/products")
+        axios.get(url)
             .then((res) => {
                 setProducts(res.data.products)
             })
     }, [url])
-    console.log(products)
+
     return (
         <div className="container">
-            {products.map((product: { id:string, title: string, price: number, description: string, imageUrl: string }) =>
-                <Card style={{width: '15rem'}} key={product.id}>
+            {products.map((product: { id: string, title: string, price: number, description: string, imageUrl: string }) =>
+                <Card style={{width: '15rem'}}>
                     <Card.Img variant="top"
                               src={product.imageUrl}/>
                     <Card.Body>
@@ -35,7 +35,6 @@ const AdminProducts: FC = () => {
                     </Card.Body>
                 </Card>
             )}
-
         </div>
     )
 }

@@ -5,4 +5,6 @@ const router = expres.Router();
 
 router.get('/products', adminController.getProducts);
 
+router.get('/add-product', adminController.AddProduct);
+
 module.exports = router;
