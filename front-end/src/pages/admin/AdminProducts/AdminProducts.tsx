@@ -1,27 +1,41 @@
-import {FC} from 'react'
+import {FC, JSXElementConstructor, ReactElement, ReactFragment, ReactPortal, useEffect, useState} from 'react'
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
-
-import'./AdminProducts.css'
+import axios from "axios";
+import './AdminProducts.css'
 
 const AdminProducts: FC = () => {
+    const [products, setProducts] = useState<any>([]);
+    const url = "http://localhost:8080/admin/products";
+    useEffect(() => {
+        axios.get("http://localhost:8080/admin/products")
+            .then((res) => {
+                setProducts(res.data.products)
+            })
+    }, [url])
+    console.log(products)
     return (
         <div className="container">
-            <Card style={{width: '15rem'}}>
-                <Card.Img variant="top"
-                          src="https://www.publicdomainpictures.net/pictures/10000/velka/1-1210009435EGmE.jpg"/>
-                <Card.Body>
-                    <Card.Title>A Book</Card.Title>
-                    <Card.Text>
-                        Some quick example text to build on the card title and make up the
-                        bulk of the card's content.
-                    </Card.Text>
-                    <div className="admin-btns">
-                        <Button variant="outline-warning" size="sm">Edit</Button>
-                        <Button variant="outline-danger" size="sm" >Delete</Button>
-                    </div>
-                </Card.Body>
-            </Card>
+            {products.map((product: { id:string, title: string, price: number, description: string, imageUrl: string }) =>
+                <Card style={{width: '15rem'}} key={product.id}>
+                    <Card.Img variant="top"
+                              src={product.imageUrl}/>
+                    <Card.Body>
+                        <Card.Title>{product.title}</Card.Title>
+                        <Card.Text>
+                            {product.description}
+                        </Card.Text>
+                        <Card.Text>
+                            ${product.price}
+                        </Card.Text>
+                        <div className="admin-btns">
+                            <Button variant="outline-warning" size="sm">Edit</Button>
+                            <Button variant="outline-danger" size="sm">Delete</Button>
+                        </div>
+                    </Card.Body>
+                </Card>
+            )}
+
         </div>
     )
 }
