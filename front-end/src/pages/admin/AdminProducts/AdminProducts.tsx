@@ -4,6 +4,15 @@ import Button from "react-bootstrap/Button";
 import axios from "axios";
 import './AdminProducts.css'
 
+
+type Product = {
+    _id: string;
+    title: string;
+    price: number;
+    description: string;
+    imageUrl: string
+};
+
 const AdminProducts: FC = () => {
     const [products, setProducts] = useState<any>([]);
     const url = "http://localhost:8080/admin/products";
@@ -14,10 +23,30 @@ const AdminProducts: FC = () => {
             })
     }, [url])
 
+    const handleEdit = async (e: any) => {
+        // e.preventDefault()
+        // const productId = e.target?.productId?.value;
+    }
+    const handleDelete = async (e: any) => {
+        // e.preventDefault()
+        // const productId = e.target?.productId?.value;
+        // const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/admin/delete-product`,
+        //     {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //         },
+        //         body: JSON.stringify(
+        //             {
+        //                 productId: productId
+        //             })
+        //     })
+    }
+
     return (
         <div className="container">
-            {products.map((product: { id: string, title: string, price: number, description: string, imageUrl: string }) =>
-                <Card style={{width: '15rem'}}>
+            {products.map((product: Product) =>
+                <Card style={{width: '15rem'}} key={product._id}>
                     <Card.Img variant="top"
                               src={product.imageUrl}/>
                     <Card.Body>
@@ -29,8 +58,15 @@ const AdminProducts: FC = () => {
                             ${product.price}
                         </Card.Text>
                         <div className="admin-btns">
-                            <Button variant="outline-warning" size="sm">Edit</Button>
-                            <Button variant="outline-danger" size="sm">Delete</Button>
+                            <form onSubmit={handleEdit}>
+                                <input type="hidden" id="productId" value={product._id}/>
+                                <Button variant="outline-warning" size="sm" type="submit">Edit</Button>
+                            </form>
+                            <form onSubmit={handleDelete}>
+                                <input type="hidden" id="productId" value={product._id}/>
+                                <Button variant="outline-danger" size="sm" type="submit">Delete</Button>
+                            </form>
+
                         </div>
                     </Card.Body>
                 </Card>

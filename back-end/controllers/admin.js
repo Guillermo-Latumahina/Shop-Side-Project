@@ -20,14 +20,24 @@ exports.AddProduct = (req, res, next) => {
     const imageUrl = req.body.imageUrl;
     const price = req.body.price;
     const description = req.body.description;
+    Product.create({title: title, imageUrl: imageUrl, price: price, description: description})
+        .then(
+            res.status(201).json({
+                message: 'Products fetched successfully', product: {
+                    title: title,
+                    imageUrl: imageUrl,
+                    price: price,
+                    description: description
+                }
+            })
+        )
+
     res.status(201).json({
         message: "Product added successfully",
-        product: {
-            id: new Date().toISOString(),
-            title: title,
-            imageUrl: imageUrl,
-            price: price,
-            description: description
-        }
+
     })
 };
+
+// exports.EditProduct
+
+// exports.DeleteProduct
