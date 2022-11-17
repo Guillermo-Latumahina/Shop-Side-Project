@@ -1,9 +1,8 @@
 import {FC, useEffect, useState} from 'react'
+
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
-// import axios from "axios";
 import './AdminProducts.css'
-
 
 type Product = {
     _id: string;
@@ -15,11 +14,10 @@ type Product = {
 
 const AdminProducts: FC = () => {
     const [products, setProducts] = useState<any>([]);
-    const url = `${process.env.REACT_APP_API_BASE_URL}/admin/products`;
     useEffect(() => {
         const fetchProducts = async () => {
             const data = await (
-                await fetch(url)
+                await fetch(`${process.env.REACT_APP_API_BASE_URL}/admin/products`)
             ).json();
             const {products} = data
             setProducts(products);
@@ -28,29 +26,32 @@ const AdminProducts: FC = () => {
     }, [])
 
     const handleEdit = async (e: any) => {
-        // e.preventDefault()
-        // const productId = e.target?.productId?.value;
+        e.preventDefault()
+        const productId = e.target?.productId?.value;
+
     }
     const handleDelete = async (e: any) => {
-        // e.preventDefault()
-        // const productId = e.target?.productId?.value;
-        // const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/admin/delete-product`,
-        //     {
-        //         method: 'POST',
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //         },
-        //         body: JSON.stringify(
-        //             {
-        //                 productId: productId
-        //             })
-        //     })
+        e.preventDefault()
+        const productId = e.target?.productId?.value;
+        const productCard = document.getElementById(productId);
+        await fetch(`${process.env.REACT_APP_API_BASE_URL}/admin/delete-product`,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(
+                    {
+                        productId: productId
+                    })
+            })
+        productCard?.remove();
     }
 
     return (
         <div className="container">
             {products.map((product: Product) =>
-                <Card style={{width: '15rem'}} key={product._id}>
+                <Card style={{width: '15rem'}} key={product._id} id={product._id}>
                     <Card.Img variant="top"
                               src={product.imageUrl}/>
                     <Card.Body>
@@ -64,7 +65,7 @@ const AdminProducts: FC = () => {
                         <div className="admin-btns">
                             <form onSubmit={handleEdit}>
                                 <input type="hidden" id="productId" value={product._id}/>
-                                <Button variant="outline-warning" size="sm" type="submit">Edit</Button>
+                                <Button variant="warning" size="sm" type="submit">Edit</Button>
                             </form>
                             <form onSubmit={handleDelete}>
                                 <input type="hidden" id="productId" value={product._id}/>

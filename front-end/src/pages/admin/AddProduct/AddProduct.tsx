@@ -1,17 +1,19 @@
-import {FC, FormEvent} from 'react'
+import {FC} from 'react'
+import {useNavigate} from "react-router-dom";
 
 import "./AddProduct.css"
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
 const AddProduct: FC = () => {
+    const navigate = useNavigate();
     const handleForm = async (e: any) => {
         e.preventDefault();
         const title = e.target?.title?.value;
         const imageUrl = e.target?.imageUrl?.value;
         const price = e.target?.price?.value;
         const description = e.target?.description?.value;
-        const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/admin/add-product`,
+        await fetch(`${process.env.REACT_APP_API_BASE_URL}/admin/add-product`,
             {
                 method: 'POST',
                 headers: {
@@ -25,6 +27,7 @@ const AddProduct: FC = () => {
                         description: description
                     })
             })
+        navigate('/admin/products')
     }
     return (
         <div className="container">

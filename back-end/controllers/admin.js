@@ -1,3 +1,4 @@
+const mongodb = require('mongodb');
 const Product = require('../models/product');
 
 exports.getProducts = (req, res, next) => {
@@ -31,13 +32,16 @@ exports.AddProduct = (req, res, next) => {
                 }
             })
         )
-
-    res.status(201).json({
-        message: "Product added successfully",
-
-    })
 };
 
 // exports.EditProduct
 
-// exports.DeleteProduct
+exports.DeleteProduct = (req, res, next) => {
+    const prodId = req.body.productId;
+    Product.deleteOne({_id: new mongodb.ObjectId(prodId)}
+    )
+        .then(
+            res.status(201).json({
+                message: 'Products deleted successfully',
+            }))
+};

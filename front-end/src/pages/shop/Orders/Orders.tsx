@@ -1,18 +1,18 @@
 import {FC, useEffect, useState} from 'react'
-
 import './Orders.css'
-import axios from "axios";
 
 const Orders: FC = () => {
     const [orders, setOrders] = useState<any>([]);
-    const url = "http://localhost:8080/orders";
     useEffect(() => {
-        axios.get(url)
-            .then((res) => {
-                setOrders(res.data.products)
-            })
-    }, [url])
-    console.log(orders)
+        const fetchOrders = async () => {
+            const data = await (
+                await fetch(`${process.env.REACT_APP_API_BASE_URL}/orders`)
+            ).json();
+            const {orders} = data
+            setOrders(orders);
+        }
+        fetchOrders();
+    }, [])
     return (
         <div className="container">
             <div className="orders">
