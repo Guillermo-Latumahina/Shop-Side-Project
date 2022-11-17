@@ -1,4 +1,4 @@
-import {FC} from 'react'
+import {FC, useState} from 'react'
 import {useNavigate} from "react-router-dom";
 
 import "./AddProduct.css"
@@ -6,6 +6,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
 const AddProduct: FC = () => {
+    const [editing, setEditing] = useState<boolean>(false);
     const navigate = useNavigate();
     const handleForm = async (e: any) => {
         e.preventDefault();
@@ -13,7 +14,8 @@ const AddProduct: FC = () => {
         const imageUrl = e.target?.imageUrl?.value;
         const price = e.target?.price?.value;
         const description = e.target?.description?.value;
-        await fetch(`${process.env.REACT_APP_API_BASE_URL}/admin/add-product`,
+        const productId = e.target?.productId.value;
+        await fetch(`${process.env.REACT_APP_API_BASE_URL}/admin/${editing ? 'edit' : 'add' }-product`,
             {
                 method: 'POST',
                 headers: {
@@ -32,7 +34,9 @@ const AddProduct: FC = () => {
     return (
         <div className="container">
             <div className="form-div">
+                <h1>{editing ? 'Edit' : 'Add' } Product</h1>
                 <Form onSubmit={handleForm}>
+                    <input type="hidden" value={editing ? '' : ''} name="productId"/>
                     <Form.Group className="mb-3" controlId="title">
                         <Form.Label>Title</Form.Label>
                         <Form.Control type="text"/>
@@ -50,7 +54,7 @@ const AddProduct: FC = () => {
                         <Form.Control as="textarea" rows={4}/>
                     </Form.Group>
                     <Button variant="primary" type="submit">
-                        Add Product
+                        {editing ? 'Edit' : 'Add' } Product
                     </Button>
                 </Form>
             </div>

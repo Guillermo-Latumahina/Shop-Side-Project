@@ -7,6 +7,7 @@ import Shop from "./pages/shop/Shop/Shop";
 import Orders from "./pages/shop/Orders/Orders";
 import AddProduct from "./pages/admin/AddProduct/AddProduct";
 import AdminProducts from "./pages/admin/AdminProducts/AdminProducts";
+import ProductDetails from "./pages/shop/ProductDetails/ProductDetails";
 
 function App() {
     return (
@@ -17,6 +18,7 @@ function App() {
                     <Route path="/" element={<Shop/>}/>
                     <Route path="/products" element={<Shop/>}/>
                     <Route path="/orders" element={<Orders/>}/>
+                    <Route path="/product-details" element={<ProductDetails/>}/>
                     <Route path="/admin/add-product" element={<AddProduct/>}/>
                     <Route path="/admin/products" element={<AdminProducts/>}/>
                 </Routes>

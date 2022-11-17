@@ -1,1 +1,1 @@
-# Shop-Side-Project
+# ProductDetails-Side-Project

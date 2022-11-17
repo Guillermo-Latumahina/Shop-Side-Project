@@ -34,7 +34,9 @@ exports.AddProduct = (req, res, next) => {
         )
 };
 
-// exports.EditProduct
+exports.EditProduct = (req, res, next) => {
+
+}
 
 exports.DeleteProduct = (req, res, next) => {
     const prodId = req.body.productId;
