@@ -1,7 +1,7 @@
 import {FC, useEffect, useState} from 'react'
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
-import axios from "axios";
+// import axios from "axios";
 import './AdminProducts.css'
 
 
@@ -15,13 +15,17 @@ type Product = {
 
 const AdminProducts: FC = () => {
     const [products, setProducts] = useState<any>([]);
-    const url = "http://localhost:8080/admin/products";
+    const url = `${process.env.REACT_APP_API_BASE_URL}/admin/products`;
     useEffect(() => {
-        axios.get(url)
-            .then((res) => {
-                setProducts(res.data.products)
-            })
-    }, [url])
+        const fetchProducts = async () => {
+            const data = await (
+                await fetch(url)
+            ).json();
+            const {products} = data
+            setProducts(products);
+        }
+        fetchProducts();
+    }, [])
 
     const handleEdit = async (e: any) => {
         // e.preventDefault()
