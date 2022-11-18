@@ -5,7 +5,6 @@ const mongoose = require('mongoose');
 
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
-const User = require('./models/user')
 const app = express();
 
 app.use(bodyParser.json());
@@ -28,18 +27,6 @@ mongoose
         }
     )
     .then(result => {
-        User.findOne().then(user => {
-            if (!user) {
-                const user = new User({
-                    name: 'Guillermo',
-                    email: 'Guillermo@test.com',
-                    cart: {
-                        items: []
-                    }
-                });
-                user.save();
-            }
-        });
         app.listen(8080);
     })
     .catch(err => {

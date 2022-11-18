@@ -1,4 +1,5 @@
 import {FC, useEffect, useState} from 'react'
+import {useNavigate} from "react-router-dom";
 
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
@@ -14,6 +15,7 @@ type Product = {
 
 const AdminProducts: FC = () => {
     const [products, setProducts] = useState<any>([]);
+    const navigate = useNavigate();
     useEffect(() => {
         const fetchProducts = async () => {
             const data = await (
@@ -24,11 +26,9 @@ const AdminProducts: FC = () => {
         }
         fetchProducts();
     }, [])
-
     const handleEdit = async (e: any) => {
         e.preventDefault()
         const productId = e.target?.productId?.value;
-
     }
     const handleDelete = async (e: any) => {
         e.preventDefault()

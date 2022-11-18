@@ -9,9 +9,8 @@ import Modal from 'react-bootstrap/Modal';
 
 import './navbar.css'
 
-const SNavbar: FC = (props) => {
+const SNavbar: FC = () => {
     const [show, setShow] = useState(false);
-
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 

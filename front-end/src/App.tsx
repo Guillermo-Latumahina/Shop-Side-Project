@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter, Routes, Route} from "react-router-dom";
+import {BrowserRouter, Routes, Route, useParams} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import SNavbar from "./components/navbar/navbar";
@@ -17,8 +17,8 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Shop/>}/>
                     <Route path="/products" element={<Shop/>}/>
+                    <Route path="/product-details/:prod_id" element={<ProductDetails/>}/>
                     <Route path="/orders" element={<Orders/>}/>
-                    <Route path="/product-details" element={<ProductDetails/>}/>
                     <Route path="/admin/add-product" element={<AddProduct/>}/>
                     <Route path="/admin/products" element={<AdminProducts/>}/>
                 </Routes>

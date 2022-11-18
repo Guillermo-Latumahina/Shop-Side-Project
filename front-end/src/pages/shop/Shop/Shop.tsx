@@ -1,10 +1,21 @@
 import {FC, useEffect, useState} from 'react'
+import {useNavigate} from "react-router-dom";
+
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import './Shop.css'
 
+type Product = {
+    _id: string;
+    title: string;
+    price: number;
+    description: string;
+    imageUrl: string
+};
+
 const Shop: FC = () => {
     const [products, setProducts] = useState<any>([]);
+    const navigate = useNavigate();
     useEffect(() => {
         const fetchProducts = async () => {
             const data = await (
@@ -15,9 +26,20 @@ const Shop: FC = () => {
         }
         fetchProducts();
     }, [])
+
+    const handleDetails = (e: any) => {
+        e.preventDefault();
+        const prodId = e.target.productId.value;
+        navigate(`/product-details/${prodId}`)
+    }
+    const handleAddToCart = (e: any) => {
+        e.preventDefault();
+        const prodId = e.target.productId.value;
+    }
+
     return (
         <div className="container">
-            {products.map((product: { _id: string, title: string, price: number, description: string, imageUrl: string }) =>
+            {products.map((product: Product) =>
                 <Card style={{width: '15rem'}} key={product._id}>
                     <Card.Img variant="top"
                               src={product.imageUrl}/>
@@ -30,8 +52,14 @@ const Shop: FC = () => {
                             ${product.price}
                         </Card.Text>
                         <div className="admin-btns">
-                            <Button variant="primary" size="sm">Details</Button>
-                            <Button variant="outline-success" size="sm">Add to Cart</Button>
+                            <form onSubmit={handleDetails}>
+                                <input type="hidden" id="productId" value={product._id}/>
+                                <Button variant="primary" size="sm" type="submit">Details</Button>
+                            </form>
+                            <form onSubmit={handleAddToCart}>
+                                <input type="hidden" id="productId" value={product._id}/>
+                                <Button variant="outline-success" size="sm">Add to Cart</Button>
+                            </form>
                         </div>
                     </Card.Body>
                 </Card>

@@ -35,7 +35,24 @@ exports.AddProduct = (req, res, next) => {
 };
 
 exports.EditProduct = (req, res, next) => {
-
+    const prodId = req.params.productId;
+    Product.findOne(prodId)
+        .then(product => {
+            res.status(200).json({
+                message: 'Products fetched successfully', product: {
+                    title: product.title,
+                    imageUrl: product.imageUrl,
+                    price: product.price,
+                    description: product.description
+                }
+            });
+        })
+        .catch(err => {
+            if (!err.statusCode) {
+                err.statusCode = 500;
+            }
+            next(err);
+        });
 }
 
 exports.DeleteProduct = (req, res, next) => {

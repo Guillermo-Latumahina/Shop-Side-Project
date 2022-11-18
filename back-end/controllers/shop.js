@@ -14,3 +14,20 @@ exports.getProducts = (req, res, next) => {
             next(err);
         });
 };
+
+exports.getProductDetails = (req, res, next) => {
+    const prodId = (req.params.productId)
+    console.log(prodId)
+    Product.findById(prodId)
+        .then(product => {
+            res.status(200).json({
+                message: 'Product details fetched successfully', product: product
+            });
+        })
+        .catch(err => {
+            if (!err.statusCode) {
+                err.statusCode = 500;
+            }
+            next(err);
+        });
+};
