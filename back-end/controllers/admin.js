@@ -34,7 +34,7 @@ exports.AddProduct = (req, res, next) => {
         )
 };
 
-exports.EditProduct = (req, res, next) => {
+exports.getEditProduct = (req, res, next) => {
     const prodId = req.params.productId;
     Product.findOne(prodId)
         .then(product => {
@@ -54,6 +54,26 @@ exports.EditProduct = (req, res, next) => {
             next(err);
         });
 }
+
+exports.EditProduct = (req, res, next) => {
+    const title = req.body.title;
+    const imageUrl = req.body.imageUrl;
+    const price = req.body.price;
+    const description = req.body.description;
+    const prodId = mongodb.ObjectId(req.body.prodId);
+    Product.updateOne({_id: prodId}, {title: title, imageUrl: imageUrl, price: price, description: description})
+        .then(
+            res.status(201).json({
+                message: 'Product edited successfully', product: {
+                    title: title,
+                    imageUrl: imageUrl,
+                    price: price,
+                    description: description,
+                }
+            })
+        )
+};
+
 
 exports.DeleteProduct = (req, res, next) => {
     const prodId = req.body.productId;

@@ -28,7 +28,8 @@ const AdminProducts: FC = () => {
     }, [])
     const handleEdit = async (e: any) => {
         e.preventDefault()
-        const productId = e.target?.productId?.value;
+        const prodId = e.target?.productId?.value;
+        navigate(`/admin/edit-product/${prodId}`)
     }
     const handleDelete = async (e: any) => {
         e.preventDefault()

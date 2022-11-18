@@ -19,7 +19,8 @@ function App() {
                     <Route path="/products" element={<Shop/>}/>
                     <Route path="/product-details/:prod_id" element={<ProductDetails/>}/>
                     <Route path="/orders" element={<Orders/>}/>
-                    <Route path="/admin/add-product" element={<AddProduct/>}/>
+                    <Route path="/admin/add-product" element={<AddProduct edit={false}/>}/>
+                    <Route path="/admin/edit-product/:prod_id" element={<AddProduct edit={true}/>}/>
                     <Route path="/admin/products" element={<AdminProducts/>}/>
                 </Routes>
 
