@@ -49,7 +49,18 @@ const SNavbar: FC = () => {
                 body: JSON.stringify(value)
             })
     };
-    const handleSubtract = () => {
+    const handleSubtract = async (e: any) => {
+        e.preventDefault();
+        const prodId = e.target.product_id.value;
+        const value = {prodId: prodId}
+        await fetch(`${process.env.REACT_APP_API_BASE_URL}/cart-subtract-item`,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(value)
+            })
     };
     const handleDelete = async (e: any) => {
         e.preventDefault();

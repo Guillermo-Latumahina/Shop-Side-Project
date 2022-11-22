@@ -48,6 +48,22 @@ userSchema.methods.addToCart = function (product) {
     return this.save();
 };
 
+userSchema.methods.subtractFromCart = function (productId) {
+    const cartProductIndex = this.cart.items.findIndex(item => {
+        return item.product.toString() === productId.toString();
+    });
+    let updatedCartItems = [...this.cart.items];
+    if (this.cart.items[cartProductIndex].quantity > 1) {
+        updatedCartItems[cartProductIndex].quantity = this.cart.items[cartProductIndex].quantity - 1;
+    } else {
+        updatedCartItems = this.cart.items.filter(item => {
+            return item.product.toString() !== productId.toString();
+        })
+    }
+    this.cart.items = updatedCartItems;
+    return this.save();
+};
+
 userSchema.methods.deleteFromCart = function (productId) {
     this.cart.items = this.cart.items.filter(item => {
         return item.product.toString() !== productId.toString();

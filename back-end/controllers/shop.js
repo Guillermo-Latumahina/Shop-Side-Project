@@ -65,6 +65,24 @@ exports.addToCart = (req, res, next) => {
         });
 }
 
+
+exports.subtractFromCart = (req, res, next) => {
+    const prodId = req.body.prodId;
+    req.user
+        .subtractFromCart(prodId)
+        .then(result => {
+            res.status(201).json({
+                message: 'Product subtracted from cart successfully',
+            })
+        })
+        .catch(err => {
+            if (!err.statusCode) {
+                err.statusCode = 500;
+            }
+            next(err);
+        });
+};
+
 exports.deleteFromCart = (req, res, next) => {
     const prodId = req.body.prodId;
     req.user
