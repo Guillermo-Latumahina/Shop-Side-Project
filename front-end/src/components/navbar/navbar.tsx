@@ -36,6 +36,37 @@ const SNavbar: FC = () => {
     }, [])
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const handleAdd = async (e: any) => {
+        e.preventDefault();
+        const prodId = e.target.product_id.value;
+        const value = {prodId: prodId}
+        await fetch(`${process.env.REACT_APP_API_BASE_URL}/cart`,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(value)
+            })
+    };
+    const handleSubtract = () => {
+    };
+    const handleDelete = async (e: any) => {
+        e.preventDefault();
+        const prodId = e.target.product_id.value;
+        const cartItem = document.getElementById(prodId);
+        const value = {prodId: prodId}
+        await fetch(`${process.env.REACT_APP_API_BASE_URL}/cart-delete-item`,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(value)
+            })
+        cartItem?.remove();
+    };
+
     return (
         <Navbar bg="light" expand="lg">
             <Container>
@@ -60,14 +91,26 @@ const SNavbar: FC = () => {
                 <Modal.Body>
                     <div className="cart-items">
                         {cartItems.map((cartItem: CartItem) =>
-                            <div className="cart-item" key={cartItem.product._id}>
+                            <div className="cart-item" key={cartItem.product._id} id={cartItem.product._id}>
                                 <div><h2>{cartItem.product.title}</h2></div>
                                 <div><h2>Quantity: {cartItem.quantity}</h2></div>
                                 <div><h2>Price: ${cartItem.product.price}</h2></div>
                                 <div className="cart-item-btns">
-                                    <Button variant="outline-warning" size="sm" className="cart-item-btn">-</Button>
-                                    <Button variant="outline-success" size="sm" className="cart-item-btn">+</Button>
-                                    <Button variant="outline-danger" size="sm">Delete</Button>
+                                    <form onSubmit={handleSubtract}>
+                                        <input type='hidden' id='product_id' value={cartItem.product._id}/>
+                                        <Button variant="outline-warning" size="sm" className="cart-item-btn"
+                                                type={"submit"}>-</Button>
+                                    </form>
+                                    <form onSubmit={handleAdd}>
+                                        <input type='hidden' id='product_id' value={cartItem.product._id}/>
+                                        <Button variant="outline-success" size="sm" className="cart-item-btn"
+                                                type={"submit"}>+</Button>
+                                    </form>
+                                    <form onSubmit={handleDelete}>
+                                        <input type='hidden' id='product_id' value={cartItem.product._id}/>
+                                        <Button variant="outline-danger" size="sm" type={"submit"}>Delete</Button>
+                                    </form>
+
                                 </div>
                             </div>
                         )}

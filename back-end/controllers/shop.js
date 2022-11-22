@@ -57,4 +57,27 @@ exports.addToCart = (req, res, next) => {
                 message: 'Product added to cart successfully',
             })
         })
+        .catch(err => {
+            if (!err.statusCode) {
+                err.statusCode = 500;
+            }
+            next(err);
+        });
 }
+
+exports.deleteFromCart = (req, res, next) => {
+    const prodId = req.body.prodId;
+    req.user
+        .deleteFromCart(prodId)
+        .then(result => {
+            res.status(201).json({
+                message: 'Product removed from cart successfully',
+            })
+        })
+        .catch(err => {
+            if (!err.statusCode) {
+                err.statusCode = 500;
+            }
+            next(err);
+        });
+};
