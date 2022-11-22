@@ -17,8 +17,18 @@ const ProductDetails: FC = () => {
         }
         fetchProductDetails();
     }, [])
-    const handleAddToCart = () => {
-
+    const handleAddToCart = async (e:any) => {
+        e.preventDefault();
+        const prodId = e.target.prod_id.value;
+        const value = {prodId: prodId}
+        await fetch(`${process.env.REACT_APP_API_BASE_URL}/cart`,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(value)
+            })
     }
 
     return (
@@ -33,7 +43,7 @@ const ProductDetails: FC = () => {
                 </Card.Body>
                 <div className="admin-btns">
                     <form onSubmit={handleAddToCart}>
-                        <input type={"hidden"} value={productDetails._id || ''}/>
+                        <input type={"hidden"} id="prod_id" value={productDetails._id || ''}/>
                         <Button variant="outline-success" type="submit" size="sm">Add to Cart</Button>
                     </form>
                 </div>

@@ -1,13 +1,22 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-
+const User = require('./models/user');
 
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 const app = express();
 
 app.use(bodyParser.json());
+
+app.use((req, res, next) => {
+    User.findById('637cffec04434ca5288c1730')
+        .then(user => {
+            req.user = user;
+            next();
+        })
+        .catch(err => console.log(err));
+});
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -27,6 +36,18 @@ mongoose
         }
     )
     .then(result => {
+        User.findOne().then(user => {
+            if (!user) {
+                const user = new User({
+                    name: 'Guillermo',
+                    email: 'Guillermo@test.com',
+                    cart: {
+                        items: []
+                    }
+                });
+                user.save();
+            }
+        });
         app.listen(8080);
     })
     .catch(err => {

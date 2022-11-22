@@ -24,7 +24,7 @@ exports.AddProduct = (req, res, next) => {
     Product.create({title: title, imageUrl: imageUrl, price: price, description: description})
         .then(
             res.status(201).json({
-                message: 'Products fetched successfully', product: {
+                message: 'Product created successfully', product: {
                     title: title,
                     imageUrl: imageUrl,
                     price: price,

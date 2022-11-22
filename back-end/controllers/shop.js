@@ -30,3 +30,31 @@ exports.getProductDetails = (req, res, next) => {
             next(err);
         });
 };
+
+exports.getCart = async (req, res, next) => {
+    await req.user
+        .populate('cart.items.product')
+        .then(user => {
+            const cartProducts = user.cart.items;
+            res.status(200).json({
+                message: 'Products fetched successfully', cartProducts: cartProducts
+            });
+        })
+        .catch(err => {
+            if (!err.statusCode) {
+                err.statusCode = 500;
+            }
+            next(err);
+        });
+};
+
+exports.addToCart = (req, res, next) => {
+    const prodId = req.body.prodId;
+    Product.findById(prodId)
+        .then(product => {
+            req.user.addToCart(product);
+            res.status(201).json({
+                message: 'Product added to cart successfully',
+            })
+        })
+}

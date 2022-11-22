@@ -1,4 +1,4 @@
-import {FC, useState} from "react";
+import {FC, useEffect, useState} from "react";
 
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
@@ -9,11 +9,33 @@ import Modal from 'react-bootstrap/Modal';
 
 import './navbar.css'
 
+type CartItem = {
+    quantity: number;
+    _id: string;
+    product: {
+        _id: string;
+        title: string;
+        price: number;
+        description: string;
+        imageUrl: string;
+    }
+};
+
 const SNavbar: FC = () => {
     const [show, setShow] = useState(false);
+    const [cartItems, setCartItems] = useState([]);
+    useEffect(() => {
+        const fetchCartItems = async () => {
+            const data = await (
+                await fetch(`${process.env.REACT_APP_API_BASE_URL}/cart`)
+            ).json();
+            const {cartProducts} = data;
+            setCartItems(cartProducts);
+        }
+        fetchCartItems();
+    }, [])
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-
     return (
         <Navbar bg="light" expand="lg">
             <Container>
@@ -37,26 +59,18 @@ const SNavbar: FC = () => {
                 </Modal.Header>
                 <Modal.Body>
                     <div className="cart-items">
-                        <div className="cart-item">
-                            <div><h2>Product name</h2></div>
-                            <div><h2>Quantity: 3</h2></div>
-                            <div><h2>Price: $23,59</h2></div>
-                            <div className="cart-item-btns">
-                                <Button variant="outline-warning" size="sm" className="cart-item-btn">-</Button>
-                                <Button variant="outline-success" size="sm" className="cart-item-btn">+</Button>
-                                <Button variant="outline-danger" size="sm">Delete</Button>
+                        {cartItems.map((cartItem: CartItem) =>
+                            <div className="cart-item" key={cartItem.product._id}>
+                                <div><h2>{cartItem.product.title}</h2></div>
+                                <div><h2>Quantity: {cartItem.quantity}</h2></div>
+                                <div><h2>Price: ${cartItem.product.price}</h2></div>
+                                <div className="cart-item-btns">
+                                    <Button variant="outline-warning" size="sm" className="cart-item-btn">-</Button>
+                                    <Button variant="outline-success" size="sm" className="cart-item-btn">+</Button>
+                                    <Button variant="outline-danger" size="sm">Delete</Button>
+                                </div>
                             </div>
-                        </div>
-                        <div className="cart-item">
-                            <div><h2>Product name</h2></div>
-                            <div><h2>Quantity: 5</h2></div>
-                            <div><h2>Price: $55,23</h2></div>
-                            <div className="cart-item-btns">
-                                <Button variant="outline-warning" size="sm" className="cart-item-btn">-</Button>
-                                <Button variant="outline-success" size="sm" className="cart-item-btn">+</Button>
-                                <Button variant="outline-danger" size="sm">Delete</Button>
-                            </div>
-                        </div>
+                        )}
                     </div>
                 </Modal.Body>
                 <Modal.Footer>

@@ -32,11 +32,19 @@ const Shop: FC = () => {
         const prodId = e.target.productId.value;
         navigate(`/product-details/${prodId}`)
     }
-    const handleAddToCart = (e: any) => {
+    const handleAddToCart = async (e: any) => {
         e.preventDefault();
         const prodId = e.target.productId.value;
+        const value = {prodId: prodId}
+        await fetch(`${process.env.REACT_APP_API_BASE_URL}/cart`,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(value)
+            })
     }
-
     return (
         <div className="container">
             {products.map((product: Product) =>
@@ -58,7 +66,7 @@ const Shop: FC = () => {
                             </form>
                             <form onSubmit={handleAddToCart}>
                                 <input type="hidden" id="productId" value={product._id}/>
-                                <Button variant="outline-success" size="sm">Add to Cart</Button>
+                                <Button variant="outline-success" type="submit" size="sm">Add to Cart</Button>
                             </form>
                         </div>
                     </Card.Body>
