@@ -19,9 +19,9 @@ const userSchema = new Schema({
                     ref: 'Product',
                     required: true
                 },
-                quantity: { type: Number, required: true }
+                quantity: {type: Number, required: true}
             }
-        ]
+        ],
     }
 });
 
@@ -38,7 +38,7 @@ userSchema.methods.addToCart = function (product) {
     } else {
         updatedCartItems.push({
             product: product._id,
-            quantity: newQuantity
+            quantity: newQuantity,
         });
     }
     const updatedCart = {

@@ -10,7 +10,7 @@ const app = express();
 app.use(bodyParser.json());
 
 app.use((req, res, next) => {
-    User.findById('637cffec04434ca5288c1730')
+    User.findById('637d42f7c6391bca981ad44e')
         .then(user => {
             req.user = user;
             next();
@@ -42,7 +42,8 @@ mongoose
                     name: 'Guillermo',
                     email: 'Guillermo@test.com',
                     cart: {
-                        items: []
+                        items: [],
+                        totalPrice: 0,
                     }
                 });
                 user.save();

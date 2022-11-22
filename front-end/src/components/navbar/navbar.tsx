@@ -24,13 +24,19 @@ type CartItem = {
 const SNavbar: FC = () => {
     const [show, setShow] = useState(false);
     const [cartItems, setCartItems] = useState([]);
+    const [totalPrice, setTotalPrice] = useState(0);
     useEffect(() => {
         const fetchCartItems = async () => {
+            let cartTotal = 0;
             const data = await (
                 await fetch(`${process.env.REACT_APP_API_BASE_URL}/cart`)
             ).json();
             const {cartProducts} = data;
+            cartProducts.forEach((cartProduct: CartItem) => {
+                cartTotal = cartProduct.product.price * cartProduct.quantity + cartTotal
+            })
             setCartItems(cartProducts);
+            setTotalPrice(cartTotal)
         }
         fetchCartItems();
     }, [])
@@ -77,7 +83,6 @@ const SNavbar: FC = () => {
             })
         cartItem?.remove();
     };
-
     return (
         <Navbar bg="light" expand="lg">
             <Container>
@@ -128,7 +133,7 @@ const SNavbar: FC = () => {
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
-                    <div className="cart-total"><h2>Cart total: $78,82</h2></div>
+                    <div className="cart-total"><h2>Cart total: ${totalPrice}</h2></div>
                     <div className="modal-footer-btns">
                         <Button variant="outline-secondary" size="sm" onClick={handleClose}>
                             Close Cart

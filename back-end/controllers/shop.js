@@ -36,8 +36,9 @@ exports.getCart = async (req, res, next) => {
         .populate('cart.items.product')
         .then(user => {
             const cartProducts = user.cart.items;
+            const totalCartPrice = user.cart.totalPrice;
             res.status(200).json({
-                message: 'Products fetched successfully', cartProducts: cartProducts
+                message: 'Products fetched successfully', cartProducts: cartProducts, totalCartPrice: totalCartPrice
             });
         })
         .catch(err => {
