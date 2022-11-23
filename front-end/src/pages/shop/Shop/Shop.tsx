@@ -26,7 +26,6 @@ const Shop: FC = () => {
         }
         fetchProducts();
     }, [])
-
     const handleDetails = (e: any) => {
         e.preventDefault();
         const prodId = e.target.productId.value;

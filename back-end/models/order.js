@@ -19,7 +19,8 @@ const orderSchema = new Schema({
       required: true,
       ref: 'User'
     }
-  }
+  },
+  totalPrice: {type: Number, required: true}
 });
 
 module.exports = mongoose.model('Order', orderSchema);

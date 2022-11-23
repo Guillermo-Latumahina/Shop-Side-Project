@@ -1,5 +1,4 @@
 import {FC, useEffect, useState} from "react";
-
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -25,6 +24,7 @@ const SNavbar: FC = () => {
     const [show, setShow] = useState(false);
     const [cartItems, setCartItems] = useState([]);
     const [totalPrice, setTotalPrice] = useState(0);
+
     useEffect(() => {
         const fetchCartItems = async () => {
             let cartTotal = 0;
@@ -42,6 +42,17 @@ const SNavbar: FC = () => {
     }, [])
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const handleOrder = async () => {
+        await fetch(`${process.env.REACT_APP_API_BASE_URL}/new-order`,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({totalPrice: totalPrice})
+            })
+        setShow(false)
+    }
     const handleAdd = async (e: any) => {
         e.preventDefault();
         const prodId = e.target.product_id.value;
@@ -138,7 +149,7 @@ const SNavbar: FC = () => {
                         <Button variant="outline-secondary" size="sm" onClick={handleClose}>
                             Close Cart
                         </Button>
-                        <Button variant="outline-success" size="sm" onClick={handleClose} href="/orders">
+                        <Button variant="outline-success" size="sm" onClick={handleOrder}>
                             Order Now!
                         </Button>
                     </div>
