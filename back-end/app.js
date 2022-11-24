@@ -30,7 +30,7 @@ app.use('/', shopRoutes);
 
 mongoose
     .connect(
-        'mongodb+srv://Guillermo:Mutiara-14@cluster0.0vmcqow.mongodb.net/Shop-Side-Project?retryWrites=true&w=majority', {
+        'mongodb+srv://Guillermo:PUWCp0UXqZ2XF9QD@cluster0.0vmcqow.mongodb.net/Shop-Side-Project?retryWrites=true&w=majority', {
             useNewUrlParser: true,
             useUnifiedTopology: true
         }
