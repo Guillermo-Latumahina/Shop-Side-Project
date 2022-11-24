@@ -1,7 +1,7 @@
 import React from 'react';
-import {BrowserRouter, Routes, Route, useParams} from "react-router-dom";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import {BrowserRouter, Routes, Route} from "react-router-dom";
 
+import 'bootstrap/dist/css/bootstrap.min.css';
 import SNavbar from "./components/navbar/navbar";
 import Shop from "./pages/shop/Shop/Shop";
 import Orders from "./pages/shop/Orders/Orders";

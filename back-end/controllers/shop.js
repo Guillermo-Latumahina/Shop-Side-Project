@@ -17,8 +17,8 @@ exports.getProducts = (req, res, next) => {
 };
 
 exports.getProductDetails = (req, res, next) => {
-    const prodId = (req.params.productId)
-    Product.findById(prodId)
+    const productId = (req.params.productId)
+    Product.findById(productId)
         .then(product => {
             res.status(200).json({
                 message: 'Product details fetched successfully', product: product
@@ -51,8 +51,8 @@ exports.getCart = async (req, res, next) => {
 };
 
 exports.addToCart = (req, res, next) => {
-    const prodId = req.body.prodId;
-    Product.findById(prodId)
+    const productId = req.body.productId;
+    Product.findById(productId)
         .then(product => {
             req.user.addToCart(product);
             res.status(201).json({
@@ -69,9 +69,9 @@ exports.addToCart = (req, res, next) => {
 
 
 exports.subtractFromCart = (req, res, next) => {
-    const prodId = req.body.prodId;
+    const productId = req.body.productId;
     req.user
-        .subtractFromCart(prodId)
+        .subtractFromCart(productId)
         .then(result => {
             res.status(201).json({
                 message: 'Product subtracted from cart successfully',
@@ -86,9 +86,9 @@ exports.subtractFromCart = (req, res, next) => {
 };
 
 exports.deleteFromCart = (req, res, next) => {
-    const prodId = req.body.prodId;
+    const productId = req.body.productId;
     req.user
-        .deleteFromCart(prodId)
+        .deleteFromCart(productId)
         .then(result => {
             res.status(201).json({
                 message: 'Product removed from cart successfully',
@@ -130,7 +130,7 @@ exports.createOrder = (req, res, next) => {
                     userId: req.user
                 },
                 products: products,
-                totalPrice:totalPrice
+                totalPrice: totalPrice
             });
             return order.save();
         })

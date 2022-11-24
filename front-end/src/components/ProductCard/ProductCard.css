@@ -1,0 +1,8 @@
+.product-card {
+    width: 15rem;
+}
+.card-btns {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}

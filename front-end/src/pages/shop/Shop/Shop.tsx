@@ -1,8 +1,7 @@
 import {FC, useEffect, useState} from 'react'
-import {useNavigate} from "react-router-dom";
 
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
+import ProductCard from "../../../components/ProductCard/ProductCard";
+
 import './Shop.css'
 
 type Product = {
@@ -15,7 +14,6 @@ type Product = {
 
 const Shop: FC = () => {
     const [products, setProducts] = useState<any>([]);
-    const navigate = useNavigate();
     useEffect(() => {
         const fetchProducts = async () => {
             const data = await (
@@ -26,50 +24,12 @@ const Shop: FC = () => {
         }
         fetchProducts();
     }, [])
-    const handleDetails = (e: any) => {
-        e.preventDefault();
-        const prodId = e.target.productId.value;
-        navigate(`/product-details/${prodId}`)
-    }
-    const handleAddToCart = async (e: any) => {
-        e.preventDefault();
-        const prodId = e.target.productId.value;
-        const value = {prodId: prodId}
-        await fetch(`${process.env.REACT_APP_API_BASE_URL}/cart`,
-            {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(value)
-            })
-    }
     return (
         <div className="container">
             {products.map((product: Product) =>
-                <Card style={{width: '15rem'}} key={product._id}>
-                    <Card.Img variant="top"
-                              src={product.imageUrl}/>
-                    <Card.Body>
-                        <Card.Title>{product.title}</Card.Title>
-                        <Card.Text>
-                            {product.description}
-                        </Card.Text>
-                        <Card.Text>
-                            ${product.price}
-                        </Card.Text>
-                        <div className="admin-btns">
-                            <form onSubmit={handleDetails}>
-                                <input type="hidden" id="productId" value={product._id}/>
-                                <Button variant="primary" size="sm" type="submit">Details</Button>
-                            </form>
-                            <form onSubmit={handleAddToCart}>
-                                <input type="hidden" id="productId" value={product._id}/>
-                                <Button variant="outline-success" type="submit" size="sm">Add to Cart</Button>
-                            </form>
-                        </div>
-                    </Card.Body>
-                </Card>
+                <div key={product._id}>
+                    <ProductCard admin={false} product={product}/>
+                </div>
             )}
         </div>
     )

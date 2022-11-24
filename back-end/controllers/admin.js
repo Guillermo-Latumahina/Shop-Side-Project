@@ -35,8 +35,8 @@ exports.AddProduct = (req, res, next) => {
 };
 
 exports.getEditProduct = (req, res, next) => {
-    const prodId = req.params.productId;
-    Product.findOne(prodId)
+    const productId = req.params.productId;
+    Product.findOne(productId)
         .then(product => {
             res.status(200).json({
                 message: 'Products fetched successfully', product: {
@@ -60,8 +60,8 @@ exports.EditProduct = (req, res, next) => {
     const imageUrl = req.body.imageUrl;
     const price = req.body.price;
     const description = req.body.description;
-    const prodId = mongodb.ObjectId(req.body.prodId);
-    Product.updateOne({_id: prodId}, {title: title, imageUrl: imageUrl, price: price, description: description})
+    const productId = mongodb.ObjectId(req.body.productId);
+    Product.updateOne({_id: productId}, {title: title, imageUrl: imageUrl, price: price, description: description})
         .then(
             res.status(201).json({
                 message: 'Product edited successfully', product: {
@@ -76,8 +76,8 @@ exports.EditProduct = (req, res, next) => {
 
 
 exports.DeleteProduct = (req, res, next) => {
-    const prodId = req.body.productId;
-    Product.deleteOne({_id: new mongodb.ObjectId(prodId)}
+    const productId = req.body.productId;
+    Product.deleteOne({_id: new mongodb.ObjectId(productId)}
     )
         .then(
             res.status(201).json({

@@ -1,15 +1,4 @@
 .container {
-    display: flex;
-    flex-wrap: wrap;
     width: 80%;
-}
-
-.cards {
-    margin: 0.5rem;
-}
-
-.admin-btns {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
+    gap: 2rem;
 }

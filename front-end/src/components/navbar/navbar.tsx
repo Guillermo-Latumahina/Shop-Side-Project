@@ -55,8 +55,8 @@ const SNavbar: FC = () => {
     }
     const handleAdd = async (e: any) => {
         e.preventDefault();
-        const prodId = e.target.product_id.value;
-        const value = {prodId: prodId}
+        const productId = e.target.product_id.value;
+        const value = {productId: productId}
         await fetch(`${process.env.REACT_APP_API_BASE_URL}/cart`,
             {
                 method: 'POST',
@@ -68,8 +68,8 @@ const SNavbar: FC = () => {
     };
     const handleSubtract = async (e: any) => {
         e.preventDefault();
-        const prodId = e.target.product_id.value;
-        const value = {prodId: prodId}
+        const productId = e.target.product_id.value;
+        const value = {productId: productId}
         await fetch(`${process.env.REACT_APP_API_BASE_URL}/cart-subtract-item`,
             {
                 method: 'POST',
@@ -81,9 +81,9 @@ const SNavbar: FC = () => {
     };
     const handleDelete = async (e: any) => {
         e.preventDefault();
-        const prodId = e.target.product_id.value;
-        const cartItem = document.getElementById(prodId);
-        const value = {prodId: prodId}
+        const productId = e.target.product_id.value;
+        const cartItem = document.getElementById(productId);
+        const value = {productId: productId}
         await fetch(`${process.env.REACT_APP_API_BASE_URL}/cart-delete-item`,
             {
                 method: 'POST',
