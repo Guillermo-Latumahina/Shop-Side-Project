@@ -27,14 +27,14 @@ const OrderBar: FC<Props> = ({order}) => {
                         <li key={product._id}>
                             <div className="order-item">
                                 <p>{product.product.title}</p>
-                                <p>Stuks: {product.quantity}</p>
-                                <p>Prijs: ${product.product.price}</p>
+                                <p>Quantity: {product.quantity}</p>
+                                <p>Price: ${product.product.price}</p>
                             </div>
                         </li>
                     )}
                 </ul>
             </div>
-            <h5>Totaal: ${order.totalPrice}</h5>
+            <h5>Total: ${order.totalPrice}</h5>
         </div>
     )
 }
