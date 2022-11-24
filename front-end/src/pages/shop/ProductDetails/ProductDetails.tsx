@@ -4,6 +4,8 @@ import {useParams} from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 
+import './ProductDetails.css';
+
 const ProductDetails: FC = () => {
     const [productDetails, setProductDetails] = useState<any>([]);
     const {prod_id} = useParams();
@@ -17,7 +19,7 @@ const ProductDetails: FC = () => {
         }
         fetchProductDetails();
     }, [])
-    const handleAddToCart = async (e:any) => {
+    const handleAddToCart = async (e: any) => {
         e.preventDefault();
         const productId = e.target.prod_id.value;
         const value = {productId: productId}

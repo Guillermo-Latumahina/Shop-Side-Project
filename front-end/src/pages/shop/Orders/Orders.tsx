@@ -1,5 +1,6 @@
 import {FC, useEffect, useState} from 'react'
-import './Orders.css'
+
+import OrderBar from "../../../components/OrderBar/OrderBar";
 
 const Orders: FC = () => {
     const [orders, setOrders] = useState<any>([]);
@@ -18,18 +19,7 @@ const Orders: FC = () => {
             <div>
                 {orders.map((order: any) =>
                     <div key={order._id}>
-                        <p>Order - #{order._id}</p>
-                        <div>
-                            <ul>
-                                {order.products.map((product: any) =>
-                                    <li key={product._id}>
-                                        <p>{product.product.title} Aantal: {product.quantity} Prijs p/s:
-                                            ${product.product.price}</p>
-                                    </li>
-                                )}
-                            </ul>
-                        </div>
-                        <p>Order totaal: ${order.totalPrice}</p>
+                        <OrderBar order={order}/>
                     </div>
                 )}
             </div>
