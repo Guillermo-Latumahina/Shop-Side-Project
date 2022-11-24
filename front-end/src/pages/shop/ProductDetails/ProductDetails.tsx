@@ -8,17 +8,17 @@ import './ProductDetails.css';
 
 const ProductDetails: FC = () => {
     const [productDetails, setProductDetails] = useState<any>([]);
-    const {prod_id} = useParams();
+    const {product_id} = useParams();
     useEffect(() => {
         const fetchProductDetails = async () => {
             const data = await (
-                await fetch(`${process.env.REACT_APP_API_BASE_URL}/product/${prod_id}`)
+                await fetch(`${process.env.REACT_APP_API_BASE_URL}/product/${product_id}`)
             ).json();
             const {product} = data;
             setProductDetails(product);
         }
         fetchProductDetails();
-    }, [])
+    }, )
     const handleAddToCart = async (e: any) => {
         e.preventDefault();
         const productId = e.target.prod_id.value;

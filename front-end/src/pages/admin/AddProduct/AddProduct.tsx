@@ -11,11 +11,11 @@ export type Props = {
 const AddProduct: FC<Props> = ({edit}) => {
     const [productDetails, setProductDetails] = useState<any>([]);
     const navigate = useNavigate();
-    const {prod_id} = useParams();
+    const {product_id} = useParams();
     useEffect(() => {
         const fetchProductDetails = async () => {
             const data = await (
-                await fetch(`${process.env.REACT_APP_API_BASE_URL}/product/${prod_id}`)
+                await fetch(`${process.env.REACT_APP_API_BASE_URL}/product/${product_id}`)
             ).json();
             const {product} = data;
             setProductDetails(product);
@@ -29,13 +29,13 @@ const AddProduct: FC<Props> = ({edit}) => {
         const imageUrl = e.target?.imageUrl?.value;
         const price = e.target?.price?.value;
         const description = e.target?.description?.value;
-        const prodId = e.target?.prod_id?.value;
+        const productId = e.target?.product_id?.value;
         const values = {
             title: title,
             imageUrl: imageUrl,
             price: price,
             description: description,
-            prodId: prodId
+            productId: productId
         };
         await fetch(`${process.env.REACT_APP_API_BASE_URL}/admin/${edit ? "edit" : "add"}-product`,
             {
@@ -52,7 +52,7 @@ const AddProduct: FC<Props> = ({edit}) => {
             <div className="form-div">
                 <h1>{edit ? "Edit" : "Add"} Product</h1>
                 <Form onSubmit={handleForm}>
-                    {edit ? <input type={"hidden"} id="prod_id" value={productDetails._id || ''}/> : null}
+                    {edit ? <input type={"hidden"} id="product_id" value={productDetails._id || ''}/> : null}
                     <Form.Group className="mb-3" controlId="title">
                         <Form.Label>Title</Form.Label>
                         <Form.Control type="text" defaultValue={productDetails.title || ''}/>

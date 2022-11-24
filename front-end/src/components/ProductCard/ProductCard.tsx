@@ -38,7 +38,7 @@ const ProductCard: FC<Props> = ({admin, product}) => {
             })
     }
 
-    const handleEdit = async (e: any) => {
+    const handleEdit = (e: any) => {
         e.preventDefault()
         const productId = e.target?.productId?.value;
         navigate(`/admin/edit-product/${productId}`)
@@ -55,7 +55,7 @@ const ProductCard: FC<Props> = ({admin, product}) => {
                 },
                 body: JSON.stringify(
                     {
-                        prodId: productId
+                        productId: productId
                     })
             })
         productCard?.remove();
